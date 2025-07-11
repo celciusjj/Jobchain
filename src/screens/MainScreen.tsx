@@ -1,10 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
+import { Input } from '../components/Input';
 
 export const MainScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Hello world :D</Text>
+      <Input />
     </View>
   );
 };
@@ -14,6 +15,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 25,
+    paddingHorizontal: 20,
   },
 });
