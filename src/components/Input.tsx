@@ -34,10 +34,11 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     flexDirection: 'row',
-  },
-  containerFocus: {
     borderRadius: 18,
     borderWidth: 4,
+    borderColor: 'transparent',
+  },
+  containerFocus: {
     borderColor: '#7D77FF33',
   },
   label: {
