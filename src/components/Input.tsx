@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TextInput, View, Pressable } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useInput } from '../hooks/useInput';
 
-export const Input = memo(() => {
+export const Input = () => {
   const { focus, handleReset, setFocus, setText, text } = useInput();
 
   return (
@@ -28,7 +28,7 @@ export const Input = memo(() => {
       ) : null}
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
