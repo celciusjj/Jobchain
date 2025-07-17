@@ -1,27 +1,43 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Pressable } from 'react-native';
+import { StyleSheet, TextInput, View, Pressable } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useInput } from '../hooks/useInput';
+import Animated from 'react-native-reanimated';
 
 export const Input = () => {
-  const { focus, handleReset, setFocus, setText, text } = useInput();
+  const {
+    focus,
+    handleReset,
+    handleOnBlur,
+    setText,
+    text,
+    handleOnFocus,
+    labelAnimatedStyle,
+  } = useInput();
 
   return (
     <View style={[styles.container, focus && styles.containerFocus]}>
-      {focus ? <Text style={styles.label}>Correo electrónico</Text> : null}
+      <Animated.Text
+        style={[
+          styles.labelContainer,
+          labelAnimatedStyle,
+          // eslint-disable-next-line react-native/no-inline-styles
+          { color: !focus ? '#7876B1' : '#7D77FF' },
+        ]}
+      >
+        {focus || text ? 'Correo electrónico' : 'Escribe tu correo electrónico'}
+      </Animated.Text>
 
       <TextInput
         style={[styles.input, focus && styles.inputFocus]}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
         onChangeText={setText}
         value={text}
-        placeholder="Escribe tu correo electrónico"
-        placeholderTextColor="#7876B1"
         multiline={false}
       />
 
-      {text ? (
+      {text && focus ? (
         <Pressable onPress={handleReset} style={styles.closeIcon}>
           <Ionicons name="close" size={20} color="white" />
         </Pressable>
@@ -37,18 +53,20 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     borderWidth: 4,
     borderColor: 'transparent',
+    overflow: 'visible',
   },
   containerFocus: {
     borderColor: '#7D77FF33',
   },
-  label: {
+  labelContainer: {
+    flex: 1,
     position: 'absolute',
-    top: 8,
-    fontSize: 10,
     zIndex: 99,
-    color: '#7D77FF',
+    fontSize: 10,
     marginLeft: 20,
-    lineHeight: 10,
+    top: '30%',
+    left: 0,
+    right: 20,
   },
   input: {
     backgroundColor: '#141534',
@@ -57,13 +75,14 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     paddingLeft: 20,
     paddingRight: 40,
+    paddingTop: 20,
     color: 'white',
-    fontSize: 18,
+    fontSize: 16,
+    borderWidth: 2,
   },
   inputFocus: {
     borderWidth: 2,
     borderColor: '#7871FF',
-    paddingTop: 15,
   },
   closeIcon: {
     position: 'absolute',
